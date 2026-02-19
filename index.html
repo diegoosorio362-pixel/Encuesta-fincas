@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Encuesta - Pulso de Experiencia</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-shapes" aria-hidden="true">
+    <span class="shape shape-a"></span>
+    <span class="shape shape-b"></span>
+    <span class="shape shape-c"></span>
+  </div>
+
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Encuesta breve</p>
+      <h1>Queremos conocer tu unidad productora</h1>
+      <p class="subhead">
+        Esta encuesta recopila informacion general de la finca y condiciones
+        del entorno. Tus respuestas son confidenciales.
+      </p>
+      <div class="meta">
+        <span>87 preguntas</span>
+        <span>Sin registro</span>
+        <span>Respuestas privadas</span>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="progress">
+        <div class="progress-bar" aria-hidden="true"></div>
+        <div class="progress-text" aria-live="polite">0% completado</div>
+      </div>
+
+      <form id="survey" novalidate>
+  <div class="form-section" data-category="Datos generales y ubicacion">
+    <h2 class="section-title">Datos generales y ubicacion</h2>
+    <div class="grid">
+      <label class="field">
+        <span>1. Departamento</span>
+        <input type="text" name="departamento" placeholder="Departamento" required />
+      </label>
+      <label class="field">
+        <span>2. Municipio</span>
+        <input type="text" name="municipio" placeholder="Municipio" required />
+      </label>
+      <label class="field">
+        <span>3. Vereda</span>
+        <input type="text" name="vereda" placeholder="Vereda" required />
+      </label>
+      <label class="field">
+        <span>4. Nombre de la unidad productora (finca)</span>
+        <input type="text" name="unidad_productora" placeholder="Nombre de la finca" required />
+      </label>
+      <label class="field">
+        <span>5. Nombre del propietario</span>
+        <input type="text" name="propietario_nombre" placeholder="Nombre del propietario" required />
+      </label>
+      <label class="field">
+        <span>6. Numero de celular del propietario</span>
+        <input type="tel" name="propietario_celular" placeholder="Ej: 3001234567" required />
+      </label>
+      <label class="field">
+        <span>7. Correo electronico del propietario</span>
+        <input type="email" name="propietario_correo" placeholder="correo@email.com" required />
+      </label>
+      <label class="field">
+        <span>8. Nombre de la persona encargada del cultivo</span>
+        <input type="text" name="encargado_nombre" placeholder="Nombre del encargado" required />
+      </label>
+      <label class="field">
+        <span>9. Numero de celular de la persona encargada del cultivo</span>
+        <input type="tel" name="encargado_celular" placeholder="Ej: 3001234567" required />
+      </label>
+      <label class="field">
+        <span>10. La unidad productora (finca) es propia, alquilado u otro</span>
+        <input type="text" name="tipo_tenencia" placeholder="Propia / Alquilada / Otro" required />
+      </label>
+    </div>
+  </div>
+
+  <div class="form-section" data-category="Caracteristicas del predio">
+    <h2 class="section-title">Caracteristicas del predio</h2>
+    <div class="grid">
+      <label class="field">
+        <span>11. Hectareas del predio</span>
+        <input type="number" name="hectareas" min="0" step="0.01" placeholder="Ej: 4.5" required />
+      </label>
+    </div>
+
+    <fieldset class="field">
+      <legend>12. Hay vivienda(s) en la unidad productora (finca)</legend>
+      <div class="options">
+        <label><input type="radio" name="hay_viviendas" value="si" required /> Si</label>
+        <label><input type="radio" name="hay_viviendas" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>13. Cuantas viviendas</legend>
+      <div class="options">
+        <label><input type="radio" name="cuantas_viviendas" value="si" required /> Si</label>
+        <label><input type="radio" name="cuantas_viviendas" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <div class="grid">
+      <label class="field">
+        <span>14. Distancia de la finca al pueblo</span>
+        <input type="text" name="distancia_pueblo" placeholder="Ej: 5 km" required />
+      </label>
+      <label class="field">
+        <span>15. Coordenadas</span>
+        <input type="text" name="coordenadas" placeholder="Ej: 4.6097, -74.0817" required />
+      </label>
+      <label class="field">
+        <span>16. Altitud</span>
+        <input type="text" name="altitud" placeholder="Ej: 1200 msnm" required />
+      </label>
+    </div>
+  </div>
+
+  <div class="form-section" data-category="Condiciones del terreno y clima">
+    <h2 class="section-title">Condiciones del terreno y clima</h2>
+    <fieldset class="field">
+      <legend>17. Relieve montanoso</legend>
+      <div class="options">
+        <label><input type="radio" name="relieve_montanoso" value="si" required /> Si</label>
+        <label><input type="radio" name="relieve_montanoso" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>18. Planicie</legend>
+      <div class="options">
+        <label><input type="radio" name="planicie" value="si" required /> Si</label>
+        <label><input type="radio" name="planicie" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>19. Llanura de inundacion</legend>
+      <div class="options">
+        <label><input type="radio" name="llanura_inundacion" value="si" required /> Si</label>
+        <label><input type="radio" name="llanura_inundacion" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>20. Terrenos humedos</legend>
+      <div class="options">
+        <label><input type="radio" name="terrenos_humedos" value="si" required /> Si</label>
+        <label><input type="radio" name="terrenos_humedos" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>21. Terrenos secos</legend>
+      <div class="options">
+        <label><input type="radio" name="terrenos_secos" value="si" required /> Si</label>
+        <label><input type="radio" name="terrenos_secos" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>22. Erosion</legend>
+      <div class="options">
+        <label><input type="radio" name="erosion" value="si" required /> Si</label>
+        <label><input type="radio" name="erosion" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>23. Lluvia</legend>
+      <div class="options">
+        <label><input type="radio" name="lluvia" value="si" required /> Si</label>
+        <label><input type="radio" name="lluvia" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>24. Vientos fuertes</legend>
+      <div class="options">
+        <label><input type="radio" name="vientos_fuertes" value="si" required /> Si</label>
+        <label><input type="radio" name="vientos_fuertes" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>25. Nubosidad</legend>
+      <div class="options">
+        <label><input type="radio" name="nubosidad" value="si" required /> Si</label>
+        <label><input type="radio" name="nubosidad" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>26. Neblina</legend>
+      <div class="options">
+        <label><input type="radio" name="neblina" value="si" required /> Si</label>
+        <label><input type="radio" name="neblina" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <div class="grid">
+      <label class="field">
+        <span>27. Temperatura</span>
+        <input type="text" name="temperatura" placeholder="Ej: 18 C" required />
+      </label>
+      <label class="field">
+        <span>28. Presion atmosferica</span>
+        <input type="text" name="presion_atmosferica" placeholder="Ej: 760 mmHg" required />
+      </label>
+    </div>
+  </div>
+
+  <div class="form-section" data-category="Entorno y manejo">
+    <h2 class="section-title">Entorno y manejo</h2>
+    <label class="field">
+      <span>29. Humedad Relativa</span>
+      <input type="text" name="humedad_relativa" placeholder="Ej: 75%" required />
+    </label>
+    <label class="field">
+      <span>30. Como describiria la historia de su finca cacaotera y los cambios que se han presentado en el entorno productivo de las areas cercanas? (UDLA)</span>
+      <input type="text" name="historia_finca_entorno" placeholder="Describe la historia y los cambios del entorno" required />
+    </label>
+    <label class="field">
+      <span>31. Que actividades agricolas y/o industriales se realizan en las areas cercanas a su finca y como considera que estas influyen en el cultivo de cacao? (UDLA)</span>
+      <input type="text" name="actividades_cercanas_influencia" placeholder="Describe actividades e influencia en el cultivo" required />
+    </label>
+
+    <fieldset class="field">
+      <legend>32. Fuentes de agua cerca</legend>
+      <div class="options">
+        <label><input type="radio" name="fuentes_agua_cerca" value="si" required /> Si</label>
+        <label><input type="radio" name="fuentes_agua_cerca" value="no" required /> No</label>
+      </div>
+    </fieldset>
+    <label class="field">
+      <span>33. De donde proviene el agua que utiliza en la finca y para que actividades y con que frecuencia la emplea? (UDLA)</span>
+      <input type="text" name="agua_origen_uso_frecuencia" placeholder="Describe origen, usos y frecuencia" required />
+    </label>
+
+    <fieldset class="field">
+      <legend>34. Cuantas fuentes de agua cerca</legend>
+      <div class="options">
+        <label><input type="radio" name="cuantas_fuentes_agua" value="si" required /> Si</label>
+        <label><input type="radio" name="cuantas_fuentes_agua" value="no" required /> No</label>
+      </div>
+    </fieldset>
+    <label class="field">
+      <span>35. Como describiria la calidad del agua que utiliza para el riego del cacao? (UDLA)</span>
+      <input type="text" name="calidad_agua_riego" placeholder="Describe la calidad del agua" required />
+    </label>
+    <label class="field">
+      <span>36. Ha notado cambios en la cantidad o calidad del agua a lo largo del tiempo? A que cree que se deben? (UDLA)</span>
+      <input type="text" name="cambios_agua_causas" placeholder="Describe cambios y causas" required />
+    </label>
+    <label class="field">
+      <span>37. Que entiende usted por contaminacion del agua? (UDLA)</span>
+      <input type="text" name="definicion_contaminacion_agua" placeholder="Describe tu definicion" required />
+    </label>
+    <label class="field">
+      <span>38. Considera que en su finca o en la zona existe algun tipo de contaminacion del agua? (UDLA)</span>
+      <input type="text" name="contaminacion_agua_zona" placeholder="Describe si hay contaminacion" required />
+    </label>
+    <label class="field">
+      <span>39. Ha observado efectos en el cultivo, en la salud o en el entorno que relacione con la calidad del agua? Implementa practicas de manejo ambiental en su finca o en el cultivo de cacao? En caso afirmativo, cuales y con que proposito? (UDLA)</span>
+      <input type="text" name="efectos_calidad_agua_manejo" placeholder="Describe efectos y practicas" required />
+    </label>
+    <label class="field">
+      <span>40. Ha escuchado o utilizado algun sistema de tratamiento de agua en la finca? (UDLA)</span>
+      <input type="text" name="sistema_tratamiento_agua" placeholder="Describe si conoce o utiliza" required />
+    </label>
+    <label class="field">
+      <span>41. Que opinion le merece la posibilidad de implementar un sistema para mejorar la calidad del agua de riego? (UDLA)</span>
+      <input type="text" name="opinion_mejora_calidad_agua" placeholder="Describe tu opinion" required />
+    </label>
+
+    <fieldset class="field">
+      <legend>42. Campo con drenaje</legend>
+      <div class="options">
+        <label><input type="radio" name="campo_con_drenaje" value="si" required /> Si</label>
+        <label><input type="radio" name="campo_con_drenaje" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>43. Uso de tractores o maquinas pesadas</legend>
+      <div class="options">
+        <label><input type="radio" name="uso_tractores" value="si" required /> Si</label>
+        <label><input type="radio" name="uso_tractores" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>44. Uso de caballos</legend>
+      <div class="options">
+        <label><input type="radio" name="uso_caballos" value="si" required /> Si</label>
+        <label><input type="radio" name="uso_caballos" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>45. Obras de construccion</legend>
+      <div class="options">
+        <label><input type="radio" name="obras_construccion" value="si" required /> Si</label>
+        <label><input type="radio" name="obras_construccion" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <label class="field">
+      <span>46. Que tipo de actividad economica realizan en la zona aledana (ganadera, el mismo cultivo, otros cultivos, fabricas, etc.)</span>
+      <input type="text" name="actividad_economica" placeholder="Describe la actividad" required />
+    </label>
+    <label class="field">
+      <span>47. Que tipo de fertilizantes y productos para el control de plagas utiliza en el cultivo de cacao? (UDLA)</span>
+      <input type="text" name="fertilizantes_control_plagas" placeholder="Describe fertilizantes y productos" required />
+    </label>
+    <label class="field">
+      <span>48. Como decide que productos aplicar y con que frecuencia? (UDLA)</span>
+      <input type="text" name="criterio_aplicacion_productos" placeholder="Describe criterio y frecuencia" required />
+    </label>
+    <label class="field">
+      <span>49. Desde su experiencia, cree que estos insumos pueden afectar el suelo o el agua de la finca? Por que? (UDLA)</span>
+      <input type="text" name="impacto_insumos_suelo_agua" placeholder="Describe impacto y razones" required />
+    </label>
+  </div>
+
+  <div class="form-section" data-category="Registro y asociacion">
+    <h2 class="section-title">Registro y asociacion</h2>
+    <fieldset class="field">
+      <legend>50. Registro nacional del ICA</legend>
+      <div class="options">
+        <label><input type="radio" name="registro_ica" value="si" required /> Si</label>
+        <label><input type="radio" name="registro_ica" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>51. Asociacion cacaotera</legend>
+      <div class="options">
+        <label><input type="radio" name="asociacion_cacaotera" value="si" required /> Si</label>
+        <label><input type="radio" name="asociacion_cacaotera" value="no" required /> No</label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="form-section" data-category="Cacao y produccion">
+    <h2 class="section-title">Cacao y produccion</h2>
+    <label class="field">
+      <span>52. Hectareas sembradas de cacao</span>
+      <input type="text" name="hectareas_cacao" placeholder="Ej: 3.2" required />
+    </label>
+
+    <label class="field">
+      <span>53. La produccion de Cacao esta en varios lotes</span>
+      <input type="text" name="produccion_varios_lotes" placeholder="Describe" required />
+    </label>
+
+    <label class="field">
+      <span>54. En cuantas lotes esta la produccion</span>
+      <input type="text" name="cuantos_lotes" placeholder="Ej: 2" required />
+    </label>
+    <label class="field">
+      <span>55. Cuantas hectareas tiene sembradas en cacao y en cuantos lotes esta distribuida la produccion? (UDLA)</span>
+      <input type="text" name="hectareas_lotes_cacao" placeholder="Describe hectareas y lotes" required />
+    </label>
+    <label class="field">
+      <span>56. Que personas integran el proceso de la produccion de cacao en la finca? (UDLA)</span>
+      <input type="text" name="personas_proceso_cacao" placeholder="Describe las personas que integran el proceso" required />
+    </label>
+    <label class="field">
+      <span>57. Que importancia tiene el cultivo de cacao dentro de las actividades productivas de la finca? (UDLA)</span>
+      <input type="text" name="importancia_cacao_finca" placeholder="Describe la importancia del cultivo" required />
+    </label>
+    <label class="field">
+      <span>58. Cuales considera que son las principales fortalezas y limitaciones del sistema productivo que maneja actualmente? (UDLA)</span>
+      <input type="text" name="fortalezas_limitaciones" placeholder="Describe fortalezas y limitaciones" required />
+    </label>
+  </div>
+
+  <div class="form-section" data-category="Sombra y cobertura vegetal">
+    <h2 class="section-title">Sombra y cobertura vegetal</h2>
+    <fieldset class="field">
+      <legend>59. Sombrio</legend>
+      <div class="options">
+        <label><input type="radio" name="sombrio" value="si" required /> Si</label>
+        <label><input type="radio" name="sombrio" value="no" required /> No</label>
+      </div>
+    </fieldset>
+    <label class="field">
+      <span>60. Posee sistema de sombrio? De ser asi, como es el arreglo de este? (especies, caracter transitorio o permanente) (UDLA)</span>
+      <input type="text" name="sistema_sombrio_arreglo" placeholder="Describe el sistema de sombrio" required />
+    </label>
+
+    <label class="field">
+      <span>61. Clones sembrados en el cultivo (nombrar el clon y porcentaje sembrado de cada uno)</span>
+      <input type="text" name="clones_sembrados" placeholder="Ej: CCN-51 60%, ICS-95 40%" required />
+    </label>
+
+    <label class="field">
+      <span>62. Especie vegetal de sombrio</span>
+      <input type="text" name="especie_sombrio" placeholder="Ej: guamo, platano" required />
+    </label>
+
+    <fieldset class="field">
+      <legend>63. Sombrio transitorio</legend>
+      <div class="options">
+        <label><input type="radio" name="sombrio_transitorio" value="si" required /> Si</label>
+        <label><input type="radio" name="sombrio_transitorio" value="no" required /> No</label>
+      </div>
+      <input type="text" name="sombrio_transitorio_porcentaje" placeholder="Si aplica, que porcentaje esta sembrado" />
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>64. Sombrio permanente</legend>
+      <div class="options">
+        <label><input type="radio" name="sombrio_permanente" value="si" required /> Si</label>
+        <label><input type="radio" name="sombrio_permanente" value="no" required /> No</label>
+      </div>
+      <input type="text" name="sombrio_permanente_porcentaje" placeholder="Si aplica, que porcentaje esta sembrado" />
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>65. Cultivo transitorio</legend>
+      <div class="options">
+        <label><input type="radio" name="cultivo_transitorio" value="si" required /> Si</label>
+        <label><input type="radio" name="cultivo_transitorio" value="no" required /> No</label>
+      </div>
+      <input type="text" name="cultivo_transitorio_detalle" placeholder="Si aplica, cual cultivo y porcentaje esta sembrado" />
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>66. Vegetacion alta</legend>
+      <div class="options">
+        <label><input type="radio" name="vegetacion_alta" value="si" required /> Si</label>
+        <label><input type="radio" name="vegetacion_alta" value="no" required /> No</label>
+      </div>
+      <input type="text" name="vegetacion_alta_detalle" placeholder="Si aplica, cual cultivo y porcentaje esta sembrado" />
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>67. Vegetacion baja</legend>
+      <div class="options">
+        <label><input type="radio" name="vegetacion_baja" value="si" required /> Si</label>
+        <label><input type="radio" name="vegetacion_baja" value="no" required /> No</label>
+      </div>
+      <input type="text" name="vegetacion_baja_detalle" placeholder="Si aplica, cual cultivo y porcentaje esta sembrado" />
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>68. Pastizales</legend>
+      <div class="options">
+        <label><input type="radio" name="pastizales" value="si" required /> Si</label>
+        <label><input type="radio" name="pastizales" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>69. Otros cultivos</legend>
+      <div class="options">
+        <label><input type="radio" name="otros_cultivos" value="si" required /> Si</label>
+        <label><input type="radio" name="otros_cultivos" value="no" required /> No</label>
+      </div>
+      <input type="text" name="otros_cultivos_cual" placeholder="Cual cultivo tiene" />
+      <input type="text" name="otros_cultivos_porcentaje" placeholder="En que porcentaje esta sembrado cada cultivo" />
+      <input type="text" name="otros_cultivos_cercanos" placeholder="Cuales estan cercanos al cultivo de cacao" />
+    </fieldset>
+  </div>
+
+  <div class="form-section" data-category="Estudios">
+    <h2 class="section-title">Estudios</h2>
+    <fieldset class="field">
+      <legend>70. Se ha realizado estudios del suelo, fruto o agua</legend>
+      <div class="options">
+        <label><input type="radio" name="estudios_suelo_fruto_agua" value="si" required /> Si</label>
+        <label><input type="radio" name="estudios_suelo_fruto_agua" value="no" required /> No</label>
+      </div>
+      <input type="text" name="estudios_cuales" placeholder="Cuales estudios se han realizado" />
+      <div class="options">
+        <label><input type="checkbox" name="estudios_parametro" value="carbono" /> Carbono</label>
+        <label><input type="checkbox" name="estudios_parametro" value="nitrogeno" /> Nitrogeno</label>
+        <label><input type="checkbox" name="estudios_parametro" value="ph" /> pH</label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="form-section" data-category="Sanidad del fruto">
+    <h2 class="section-title">Sanidad del fruto</h2>
+    <fieldset class="field">
+      <legend>71. Tipo de enfermedades presentes en el fruto</legend>
+      <div class="options">
+        <label><input type="checkbox" name="enfermedades_fruto" value="escoba_bruja" /> Susceptibilidad a la escoba de bruja</label>
+        <label><input type="checkbox" name="enfermedades_fruto" value="fitoftoria" /> Susceptibilidad a la Fitoftoria</label>
+        <label><input type="checkbox" name="enfermedades_fruto" value="mal_rosado" /> Susceptibilidad al Mal rosado</label>
+        <label><input type="checkbox" name="enfermedades_fruto" value="monilia" /> Susceptibilidad a la monilia</label>
+        <label><input type="checkbox" name="enfermedades_fruto" value="reaccion_monilia" /> Reaccion a monilia</label>
+        <label><input type="checkbox" name="enfermedades_fruto" value="otro" /> Otro</label>
+      </div>
+      <input type="text" name="enfermedades_fruto_otro" placeholder="Si aplica, cual otra enfermedad" />
+    </fieldset>
+    <label class="field">
+      <span>72. Su cultivo ha presentado enfermedades y/o plagas en algun momento? De ser asi, cuales? (UDLA)</span>
+      <input type="text" name="enfermedades_plagas_cultivo" placeholder="Describe enfermedades y/o plagas" required />
+    </label>
+  </div>
+
+  <div class="form-section" data-category="Poscosecha">
+    <h2 class="section-title">Poscosecha</h2>
+    <label class="field">
+      <span>73. Como es el proceso poscosecha</span>
+      <input type="text" name="proceso_poscosecha" placeholder="Describe el proceso poscosecha" required />
+    </label>
+    <label class="field">
+      <span>74. Como se realiza el proceso de fermentacion en su finca, los clones se fermentan de manera individual o juntos (si aplica), cuanto dura la fermentacion en promedio y que criterio utiliza para determinar que el grano se encuentra fermentado? (UDLA)</span>
+      <input type="text" name="proceso_fermentacion" placeholder="Describe fermentacion, clones, duracion y criterio" required />
+    </label>
+    <label class="field">
+      <span>75. Que analisis de control le aplica al cacao ya fermentado, tanto en la finca como por medios externos? (UDLA)</span>
+      <input type="text" name="analisis_control_cacao" placeholder="Describe analisis de control" required />
+    </label>
+  </div>
+
+  <div class="form-section" data-category="Biomasa y residuos">
+    <h2 class="section-title">Biomasa y residuos</h2>
+    <label class="field">
+      <span>76. Tipos de biomasa/residuo</span>
+      <input type="text" name="tipos_biomasa_residuo" placeholder="Describe los tipos" required />
+    </label>
+
+    <label class="field">
+      <span>77. Cantidad de biomasa/residuo por tipo</span>
+      <input type="text" name="cantidad_biomasa_residuo" placeholder="Cantidad por tipo" required />
+    </label>
+
+    <label class="field">
+      <span>78. Disposicion por tipo de biomasa/residuo</span>
+      <input type="text" name="disposicion_biomasa_residuo" placeholder="Describe la disposicion" required />
+    </label>
+
+    <label class="field">
+      <span>79. Tratamiento antes de la disposicion por tipo de biomasa/residuo</span>
+      <input type="text" name="tratamiento_biomasa_residuo" placeholder="Describe el tratamiento" required />
+    </label>
+
+    <label class="field">
+      <span>80. Valorizacion por tipo de biomasa/residuo</span>
+      <input type="text" name="valorizacion_biomasa_residuo" placeholder="Describe la valorizacion" required />
+    </label>
+
+    <label class="field">
+      <span>81. Tipo de valorizacion por tipo de biomasa/residuo</span>
+      <input type="text" name="tipo_valorizacion_biomasa_residuo" placeholder="Describe el tipo de valorizacion" required />
+    </label>
+
+    <label class="field">
+      <span>82. Efectos negativos generados por los residuos por tipo de biomasa/residuo</span>
+      <input type="text" name="efectos_residuos_biomasa" placeholder="Describe los efectos negativos" required />
+    </label>
+    <label class="field">
+      <span>83. Durante el proceso del cultivo de cacao, que residuos son generados y como son manejados dentro o fuera de la finca? (UDLA)</span>
+      <input type="text" name="residuos_cacao_manejo" placeholder="Describe residuos y manejo" required />
+    </label>
+  </div>
+
+  <div class="form-section" data-category="Conectividad">
+    <h2 class="section-title">Conectividad</h2>
+    <fieldset class="field">
+      <legend>84. Conectividad</legend>
+      <div class="options">
+        <label><input type="radio" name="conectividad" value="si" required /> Si</label>
+        <label><input type="radio" name="conectividad" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>85. Senal de celular</legend>
+      <div class="options">
+        <label><input type="radio" name="senal_celular" value="si" required /> Si</label>
+        <label><input type="radio" name="senal_celular" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>86. Senal de celular con datos</legend>
+      <div class="options">
+        <label><input type="radio" name="senal_celular_datos" value="si" required /> Si</label>
+        <label><input type="radio" name="senal_celular_datos" value="no" required /> No</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>87. Operador de datos</legend>
+      <div class="options">
+        <label><input type="radio" name="operador_datos" value="si" required /> Si</label>
+        <label><input type="radio" name="operador_datos" value="no" required /> No</label>
+      </div>
+    </fieldset>
+  </div>
+
+        <button type="submit" class="cta">Enviar encuesta</button>
+        <p class="fineprint">Al enviar aceptas que usemos tus respuestas de forma agregada.</p>
+        <label class="field">
+          <span>OBSERVACIONES DEL ENTREVISTADOR:</span>
+          <textarea name="observaciones_entrevistador" rows="4" placeholder="Escribe observaciones adicionales."></textarea>
+        </label>
+      </form>
+    </section>
+
+    <section class="thanks" hidden>
+      <h2>Gracias por tu tiempo!</h2>
+      <p>Recibimos tu encuesta. Si deseas, puedes dejar un dato de contacto adicional y te responderemos en 48h.</p>
+      <button class="ghost" id="downloadBtn" type="button">Descargar Excel</button>
+      <button class="ghost" id="resetBtn">Responder otra vez</button>
+    </section>
+  </main>
+
+  <script src="xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
