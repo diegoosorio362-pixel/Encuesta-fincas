@@ -78,6 +78,14 @@ const clearErrors = () => {
   form.querySelectorAll(".error-text").forEach((el) => el.remove());
 };
 
+const clearSectionErrors = (section) => {
+  if (!section) {
+    return;
+  }
+  section.querySelectorAll(".invalid").forEach((el) => el.classList.remove("invalid"));
+  section.querySelectorAll(".error-text").forEach((el) => el.remove());
+};
+
 const setFieldError = (container, message) => {
   if (!container) {
     return;
@@ -509,6 +517,63 @@ const validateForm = () => {
   return isValid;
 };
 
+const validateSection = (section) => {
+  if (!section) {
+    return true;
+  }
+
+  clearSectionErrors(section);
+  let isValid = true;
+  const elements = Array.from(section.querySelectorAll("input, select, textarea")).filter(
+    (element) => element.name && !element.disabled
+  );
+  const handledRadio = new Set();
+
+  elements.forEach((element) => {
+    if (element.type === "radio") {
+      if (handledRadio.has(element.name)) {
+        return;
+      }
+      handledRadio.add(element.name);
+      const group = elements.filter((item) => item.type === "radio" && item.name === element.name);
+      const groupRequired = group.some((item) => item.required);
+      const checked = group.some((item) => item.checked);
+      if (groupRequired && !checked) {
+        setFieldError(getFieldContainer(element), "Selecciona una opcion.");
+        isValid = false;
+      }
+      return;
+    }
+
+    if (!element.required && !element.value.trim()) {
+      return;
+    }
+
+    const container = getFieldContainer(element);
+    if (element.required && !element.value.trim()) {
+      setFieldError(container, "Este campo es obligatorio.");
+      isValid = false;
+      return;
+    }
+
+    if (element.type === "tel") {
+      const normalized = element.value.replace(/\D/g, "");
+      if (!phoneRegex.test(normalized)) {
+        setFieldError(container, "Ingresa un celular valido de 10 digitos.");
+        isValid = false;
+      }
+      return;
+    }
+
+    if (element.type === "email" && !element.checkValidity()) {
+      setFieldError(container, "Ingresa un correo electronico valido.");
+      isValid = false;
+    }
+  });
+
+  return isValid;
+};
+
 form.addEventListener("input", (event) => {
   if (event.target.type === "tel") {
     event.target.value = event.target.value.replace(/\D/g, "").slice(0, 10);
@@ -577,8 +642,16 @@ if (prevSectionBtn) {
 
 if (nextSectionBtn) {
   nextSectionBtn.addEventListener("click", () => {
+    updateConditionalVisibility();
     const activeSection = sections.find((section) => !section.hidden);
     const index = activeSection ? sections.indexOf(activeSection) : 0;
+    if (!validateSection(activeSection)) {
+      const firstError = activeSection?.querySelector(".invalid");
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
     const nextIndex = Math.min(sections.length - 1, index + 1);
     activateSection(sections[nextIndex].dataset.sectionId, true);
   });
