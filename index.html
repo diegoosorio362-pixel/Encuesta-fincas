@@ -39,6 +39,7 @@
       <div class="progress">
         <div class="progress-bar" aria-hidden="true"></div>
         <div class="progress-text" aria-live="polite">0% completado</div>
+        <button type="button" class="ghost" id="autofillBtn">Autollenar prueba</button>
       </div>
 
       <div class="survey-layout">
@@ -634,11 +635,14 @@
       <h2>Gracias por tu tiempo!</h2>
       <p>Recibimos tu encuesta. Si deseas, puedes dejar un dato de contacto adicional y te responderemos en 48h.</p>
       <button class="ghost" id="downloadBtn" type="button">Descargar Excel</button>
+      <button class="ghost" id="downloadPdfBtn" type="button">Descargar PDF</button>
       <button class="ghost" id="resetBtn">Responder otra vez</button>
     </section>
   </main>
 
   <script src="xlsx.full.min.js"></script>
+  <script src="exceljs.min.js"></script>
+  <script src="jspdf.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
