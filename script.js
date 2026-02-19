@@ -5,6 +5,9 @@ const thanks = document.querySelector(".thanks");
 const resetBtn = document.querySelector("#resetBtn");
 const downloadBtn = document.querySelector("#downloadBtn");
 const sectionNavList = document.querySelector("#sectionNavList");
+const prevSectionBtn = document.querySelector("#prevSectionBtn");
+const nextSectionBtn = document.querySelector("#nextSectionBtn");
+const mobileSectionState = document.querySelector("#mobileSectionState");
 const sections = Array.from(document.querySelectorAll(".form-section"));
 let lastResponses = null;
 const phoneRegex = /^[0-9]{10}$/;
@@ -390,6 +393,25 @@ const setActiveSection = (sectionId) => {
   sectionNavList.querySelectorAll(".section-nav-item").forEach((node) => {
     node.classList.toggle("active", node.dataset.nav === sectionId);
   });
+  updateMobileSectionNav(sectionId);
+};
+
+const updateMobileSectionNav = (sectionId) => {
+  if (!sections.length) {
+    return;
+  }
+  const index = sections.findIndex((section) => section.dataset.sectionId === sectionId);
+  const current = index >= 0 ? index : 0;
+
+  if (mobileSectionState) {
+    mobileSectionState.textContent = `Seccion ${current + 1} de ${sections.length}`;
+  }
+  if (prevSectionBtn) {
+    prevSectionBtn.disabled = current === 0;
+  }
+  if (nextSectionBtn) {
+    nextSectionBtn.disabled = current === sections.length - 1;
+  }
 };
 
 const activateSection = (sectionId, shouldScroll = false) => {
@@ -543,6 +565,24 @@ resetBtn.addEventListener("click", () => {
 downloadBtn.addEventListener("click", () => {
   downloadExcel(lastResponses);
 });
+
+if (prevSectionBtn) {
+  prevSectionBtn.addEventListener("click", () => {
+    const activeSection = sections.find((section) => !section.hidden);
+    const index = activeSection ? sections.indexOf(activeSection) : 0;
+    const prevIndex = Math.max(0, index - 1);
+    activateSection(sections[prevIndex].dataset.sectionId, true);
+  });
+}
+
+if (nextSectionBtn) {
+  nextSectionBtn.addEventListener("click", () => {
+    const activeSection = sections.find((section) => !section.hidden);
+    const index = activeSection ? sections.indexOf(activeSection) : 0;
+    const nextIndex = Math.min(sections.length - 1, index + 1);
+    activateSection(sections[nextIndex].dataset.sectionId, true);
+  });
+}
 
 updateConditionalVisibility();
 initSectionNav();
