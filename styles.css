@@ -1,11 +1,12 @@
 :root {
-  --ink: #1d1a16;
-  --muted: #6f665b;
-  --paper: #f7f1e8;
-  --accent: #ef6b4a;
-  --accent-dark: #c45035;
-  --shadow: rgba(24, 18, 10, 0.18);
-  --glass: rgba(255, 255, 255, 0.78);
+  --ink: #1b1f1a;
+  --muted: #4d5b52;
+  --paper: #f4f7f1;
+  --accent: #1b8f2f;
+  --accent-dark: #146d23;
+  --accent-warm: #d3272a;
+  --shadow: rgba(20, 30, 22, 0.18);
+  --glass: rgba(255, 255, 255, 0.82);
 }
 
 * {
@@ -17,7 +18,7 @@ body {
   min-height: 100vh;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
   color: var(--ink);
-  background: radial-gradient(circle at top left, #fff7e9 0%, #f1dcca 38%, #e9b9a0 75%, #e5a193 100%);
+  background: radial-gradient(circle at top left, #f6fbf4 0%, #e3efe1 40%, #d5e7d4 75%, #c8dfcb 100%);
   overflow-x: hidden;
 }
 
@@ -39,7 +40,7 @@ body {
 .shape-a {
   width: 320px;
   height: 320px;
-  background: #fbe3bf;
+  background: #e7f4ea;
   top: -80px;
   left: -60px;
 }
@@ -47,7 +48,7 @@ body {
 .shape-b {
   width: 260px;
   height: 260px;
-  background: #f6c2a5;
+  background: #f3d7d7;
   bottom: -40px;
   right: -30px;
   animation-delay: -6s;
@@ -56,7 +57,7 @@ body {
 .shape-c {
   width: 180px;
   height: 180px;
-  background: #f4a77a;
+  background: #dbeed9;
   top: 40%;
   left: 65%;
   animation-delay: -10s;
@@ -77,6 +78,38 @@ body {
   box-shadow: 0 20px 60px var(--shadow);
   backdrop-filter: blur(8px);
   animation: rise 0.8s ease-out;
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.hero-brand img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.hero-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand-name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--accent-dark);
+}
+
+.brand-sub {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .eyebrow {
@@ -108,7 +141,7 @@ body {
 }
 
 .meta span {
-  background: #fff3e6;
+  background: #e8f3e7;
   padding: 6px 14px;
   border-radius: 999px;
 }
@@ -133,7 +166,7 @@ body {
   flex: 1;
   height: 10px;
   border-radius: 999px;
-  background: #f4d1bc;
+  background: #d5ead7;
   position: relative;
   overflow: hidden;
   --progress: 0%;
@@ -144,7 +177,7 @@ body {
   position: absolute;
   inset: 0;
   width: var(--progress);
-  background: linear-gradient(90deg, var(--accent), #f09f83);
+  background: linear-gradient(90deg, var(--accent), #2dbb4a);
   border-radius: 999px;
   transition: width 0.3s ease;
 }
@@ -167,8 +200,8 @@ form {
   gap: 18px;
   padding: 18px;
   border-radius: 20px;
-  background: rgba(255, 250, 244, 0.7);
-  border: 1px solid rgba(225, 199, 179, 0.6);
+  background: rgba(248, 252, 248, 0.8);
+  border: 1px solid rgba(174, 204, 178, 0.6);
 }
 
 .section-title {
@@ -204,10 +237,10 @@ select,
 textarea {
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1px solid #e1c7b3;
+  border: 1px solid #c6d9c8;
   font-family: inherit;
   font-size: 1rem;
-  background: #fffaf4;
+  background: #fdfefc;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -216,7 +249,7 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(239, 107, 74, 0.2);
+  box-shadow: 0 0 0 3px rgba(27, 143, 47, 0.2);
 }
 
 fieldset {
@@ -235,7 +268,7 @@ fieldset {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #fff2e7;
+  background: #edf7ef;
   padding: 8px 12px;
   border-radius: 999px;
   cursor: pointer;
@@ -244,7 +277,7 @@ fieldset {
 
 .options label:hover {
   transform: translateY(-2px);
-  background: #ffe6d6;
+  background: #dff1e3;
 }
 
 .scale {
@@ -279,7 +312,7 @@ input[type="range"] {
 
 .cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(239, 107, 74, 0.25);
+  box-shadow: 0 12px 24px rgba(27, 143, 47, 0.25);
 }
 
 .fineprint {
@@ -339,6 +372,11 @@ input[type="range"] {
   }
 
   .progress {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-brand {
     flex-direction: column;
     align-items: flex-start;
   }
