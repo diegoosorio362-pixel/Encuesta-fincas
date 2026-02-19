@@ -4,11 +4,125 @@ const progressBar = document.querySelector(".progress-bar");
 const thanks = document.querySelector(".thanks");
 const resetBtn = document.querySelector("#resetBtn");
 const downloadBtn = document.querySelector("#downloadBtn");
+const sectionNavList = document.querySelector("#sectionNavList");
+const sections = Array.from(document.querySelectorAll(".form-section"));
 let lastResponses = null;
+const phoneRegex = /^[0-9]{10}$/;
+
+const conditionalRules = [
+  { controller: "hay_viviendas", value: "si", targets: ["cuantas_viviendas"] },
+  { controller: "fuentes_agua_cerca", value: "si", targets: ["cuantas_fuentes_agua"] },
+  {
+    controller: "estudios_suelo_fruto_agua",
+    value: "si",
+    targets: ["estudios_cuales", "estudios_parametro"]
+  },
+  { controller: "sombrio_transitorio", value: "si", targets: ["sombrio_transitorio_porcentaje"] },
+  { controller: "sombrio_permanente", value: "si", targets: ["sombrio_permanente_porcentaje"] },
+  { controller: "cultivo_transitorio", value: "si", targets: ["cultivo_transitorio_detalle"] },
+  { controller: "vegetacion_alta", value: "si", targets: ["vegetacion_alta_detalle"] },
+  { controller: "vegetacion_baja", value: "si", targets: ["vegetacion_baja_detalle"] },
+  {
+    controller: "otros_cultivos",
+    value: "si",
+    targets: ["otros_cultivos_cual", "otros_cultivos_porcentaje", "otros_cultivos_cercanos"]
+  },
+  { controller: "enfermedades_fruto", value: "otro", type: "checkbox", targets: ["enfermedades_fruto_otro"] }
+];
 
 const getCategory = (element) => {
   const section = element.closest(".form-section");
   return section ? section.dataset.category : "General";
+};
+
+const getFieldContainer = (element) =>
+  element.closest(".field") || element.closest("fieldset") || element.closest("label");
+
+const getTargetNodesByName = (name) => {
+  const elements = Array.from(form.querySelectorAll(`[name='${name}']`));
+  const nodes = [];
+
+  elements.forEach((element) => {
+    if (element.type === "radio") {
+      const container = getFieldContainer(element);
+      if (container) {
+        nodes.push(container);
+      }
+      return;
+    }
+
+    if (element.type === "checkbox") {
+      nodes.push(element.closest("label") || element);
+      return;
+    }
+
+    nodes.push(element.closest("label") || element);
+  });
+
+  return [...new Set(nodes)];
+};
+
+const clearInputValue = (input) => {
+  if (input.type === "radio" || input.type === "checkbox") {
+    input.checked = false;
+    return;
+  }
+  input.value = "";
+};
+
+const clearErrors = () => {
+  form.querySelectorAll(".invalid").forEach((el) => el.classList.remove("invalid"));
+  form.querySelectorAll(".error-text").forEach((el) => el.remove());
+};
+
+const setFieldError = (container, message) => {
+  if (!container) {
+    return;
+  }
+  container.classList.add("invalid");
+  if (!container.querySelector(".error-text")) {
+    const error = document.createElement("p");
+    error.className = "error-text";
+    error.textContent = message;
+    container.appendChild(error);
+  }
+};
+
+const toggleTargets = (targetNames, show) => {
+  targetNames.forEach((targetName) => {
+    const nodes = getTargetNodesByName(targetName);
+    nodes.forEach((node) => {
+      node.hidden = !show;
+      const elements = node.matches("input, select, textarea")
+        ? [node]
+        : Array.from(node.querySelectorAll("input, select, textarea"));
+
+      elements.forEach((element) => {
+        element.disabled = !show;
+        if (!show) {
+          clearInputValue(element);
+        }
+      });
+
+      if (!show) {
+        node.classList.remove("invalid");
+        node.querySelectorAll(".error-text").forEach((el) => el.remove());
+      }
+    });
+  });
+};
+
+const updateConditionalVisibility = () => {
+  conditionalRules.forEach((rule) => {
+    let show = false;
+    if (rule.type === "checkbox") {
+      show = !!form.querySelector(`input[name='${rule.controller}'][value='${rule.value}']:checked`);
+    } else {
+      const checked = form.querySelector(`input[name='${rule.controller}']:checked`);
+      show = !!checked && checked.value === rule.value;
+    }
+    toggleTargets(rule.targets, show);
+  });
 };
 
 const getQuestionLabel = (element) => {
@@ -36,7 +150,7 @@ const getQuestionLabel = (element) => {
 };
 
 const collectResponses = () => {
-  const elements = Array.from(form.elements).filter((el) => el.name);
+  const elements = Array.from(form.elements).filter((el) => el.name && !el.disabled);
   const handled = new Set();
   const rows = [];
 
@@ -206,13 +320,22 @@ const downloadExcel = (rows) => {
 };
 
 const updateProgress = () => {
-  const inputs = form.querySelectorAll("input, select, textarea");
+  const inputs = Array.from(form.querySelectorAll("input, select, textarea")).filter(
+    (input) => !input.disabled
+  );
+
+  if (inputs.length === 0) {
+    progressText.textContent = "0% completado";
+    progressBar.style.setProperty("--progress", "0%");
+    return;
+  }
+
   const filled = Array.from(inputs).filter((input) => {
     if (input.type === "radio") {
-      return form.querySelector(`input[name='${input.name}']:checked`);
+      return inputs.some((item) => item.name === input.name && item.checked);
     }
     if (input.type === "checkbox") {
-      return form.querySelectorAll(`input[name='${input.name}']:checked`).length > 0;
+      return inputs.some((item) => item.name === input.name && item.checked);
     }
     return input.value.trim().length > 0;
   });
@@ -220,17 +343,187 @@ const updateProgress = () => {
   const percent = Math.round((filled.length / inputs.length) * 100);
   progressText.textContent = `${percent}% completado`;
   progressBar.style.setProperty("--progress", `${percent}%`);
+  updateSectionProgress();
 };
 
-form.addEventListener("input", () => {
+const sectionStats = (section) => {
+  const sectionInputs = Array.from(section.querySelectorAll("input, select, textarea")).filter(
+    (input) => !input.disabled
+  );
+
+  if (sectionInputs.length === 0) {
+    return { percent: 0, filled: 0, total: 0 };
+  }
+
+  const filled = sectionInputs.filter((input) => {
+    if (input.type === "radio" || input.type === "checkbox") {
+      return sectionInputs.some((item) => item.name === input.name && item.checked);
+    }
+    return input.value.trim().length > 0;
+  });
+
+  const percent = Math.round((filled.length / sectionInputs.length) * 100);
+  return { percent, filled: filled.length, total: sectionInputs.length };
+};
+
+const updateSectionProgress = () => {
+  sections.forEach((section) => {
+    const id = section.dataset.sectionId;
+    const item = sectionNavList?.querySelector(`[data-nav='${id}']`);
+    if (!item) {
+      return;
+    }
+
+    const stats = sectionStats(section);
+    const badge = item.querySelector(".section-nav-progress");
+    if (badge) {
+      badge.textContent = `${stats.percent}%`;
+    }
+    item.classList.toggle("done", stats.percent === 100);
+  });
+};
+
+const setActiveSection = (sectionId) => {
+  if (!sectionNavList) {
+    return;
+  }
+  sectionNavList.querySelectorAll(".section-nav-item").forEach((node) => {
+    node.classList.toggle("active", node.dataset.nav === sectionId);
+  });
+};
+
+const activateSection = (sectionId, shouldScroll = false) => {
+  const targetSection = sections.find((section) => section.dataset.sectionId === sectionId);
+  if (!targetSection) {
+    return;
+  }
+
+  sections.forEach((section) => {
+    section.hidden = section.dataset.sectionId !== sectionId;
+  });
+
+  setActiveSection(sectionId);
+  if (shouldScroll) {
+    targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
+const initSectionNav = () => {
+  if (!sectionNavList || sections.length === 0) {
+    return;
+  }
+
+  sections.forEach((section, index) => {
+    const safeId = `section-${index + 1}`;
+    section.dataset.sectionId = safeId;
+    section.id = safeId;
+
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "section-nav-item";
+    btn.dataset.nav = safeId;
+    btn.innerHTML = `<span class="section-nav-label">${section.dataset.category}</span><span class="section-nav-progress">0%</span>`;
+    btn.addEventListener("click", () => {
+      activateSection(safeId, true);
+    });
+    li.appendChild(btn);
+    sectionNavList.appendChild(li);
+  });
+  activateSection(sections[0].dataset.sectionId);
+  updateSectionProgress();
+};
+
+const validateForm = () => {
+  clearErrors();
+  let isValid = true;
+  const visibleElements = Array.from(form.elements).filter(
+    (element) => element.name && !element.disabled
+  );
+  const handledRadio = new Set();
+
+  visibleElements.forEach((element) => {
+    if (element.type === "radio") {
+      if (handledRadio.has(element.name)) {
+        return;
+      }
+      handledRadio.add(element.name);
+      const group = visibleElements.filter((item) => item.type === "radio" && item.name === element.name);
+      const groupRequired = group.some((item) => item.required);
+      const checked = group.some((item) => item.checked);
+      if (groupRequired && !checked) {
+        setFieldError(getFieldContainer(element), "Selecciona una opcion.");
+        isValid = false;
+      }
+      return;
+    }
+
+    if (!element.required && !element.value.trim()) {
+      return;
+    }
+
+    const container = getFieldContainer(element);
+    if (element.required && !element.value.trim()) {
+      setFieldError(container, "Este campo es obligatorio.");
+      isValid = false;
+      return;
+    }
+
+    if (element.type === "tel") {
+      const normalized = element.value.replace(/\D/g, "");
+      if (!phoneRegex.test(normalized)) {
+        setFieldError(container, "Ingresa un celular valido de 10 digitos.");
+        isValid = false;
+      }
+      return;
+    }
+
+    if (element.type === "email" && !element.checkValidity()) {
+      setFieldError(container, "Ingresa un correo electronico valido.");
+      isValid = false;
+    }
+  });
+
+  return isValid;
+};
+
+form.addEventListener("input", (event) => {
+  if (event.target.type === "tel") {
+    event.target.value = event.target.value.replace(/\D/g, "").slice(0, 10);
+  }
+  const container = getFieldContainer(event.target);
+  if (container) {
+    container.classList.remove("invalid");
+    container.querySelectorAll(".error-text").forEach((el) => el.remove());
+  }
+  updateConditionalVisibility();
+  updateProgress();
+});
+
+form.addEventListener("change", () => {
+  updateConditionalVisibility();
   updateProgress();
 });
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  updateConditionalVisibility();
+  if (!validateForm()) {
+    const firstError = form.querySelector(".invalid");
+    if (firstError) {
+      const targetSection = firstError.closest(".form-section");
+      if (targetSection && targetSection.dataset.sectionId) {
+        activateSection(targetSection.dataset.sectionId);
+      }
+      firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    return;
+  }
   lastResponses = collectResponses();
   downloadExcel(lastResponses);
   form.reset();
+  clearErrors();
+  updateConditionalVisibility();
   updateProgress();
   form.parentElement.hidden = true;
   thanks.hidden = false;
@@ -239,6 +532,11 @@ form.addEventListener("submit", (event) => {
 resetBtn.addEventListener("click", () => {
   thanks.hidden = true;
   form.parentElement.hidden = false;
+  clearErrors();
+  updateConditionalVisibility();
+  if (sections[0] && sections[0].dataset.sectionId) {
+    activateSection(sections[0].dataset.sectionId);
+  }
   updateProgress();
 });
 
@@ -246,4 +544,6 @@ downloadBtn.addEventListener("click", () => {
   downloadExcel(lastResponses);
 });
 
+updateConditionalVisibility();
+initSectionNav();
 updateProgress();

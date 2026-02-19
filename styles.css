@@ -200,6 +200,82 @@ form {
   gap: 22px;
 }
 
+.survey-layout {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.section-nav {
+  position: sticky;
+  top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(174, 204, 178, 0.5);
+  background: rgba(248, 252, 248, 0.92);
+}
+
+.section-nav-title {
+  margin: 0 0 10px;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.section-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-nav-item {
+  width: 100%;
+  border: 1px solid #d6e5d8;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  font: inherit;
+  text-align: left;
+  color: #243328;
+}
+
+.section-nav-item:hover {
+  border-color: #a8ccaf;
+}
+
+.section-nav-item.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(27, 143, 47, 0.12);
+}
+
+.section-nav-item.done {
+  background: #edf7ef;
+  border-color: #8ec799;
+}
+
+.section-nav-label {
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.section-nav-progress {
+  font-size: 0.78rem;
+  color: var(--accent-dark);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .form-section {
   display: flex;
   flex-direction: column;
@@ -208,6 +284,10 @@ form {
   border-radius: 20px;
   background: rgba(252, 254, 252, 0.9);
   border: 1px solid rgba(174, 204, 178, 0.5);
+}
+
+.form-section[hidden] {
+  display: none !important;
 }
 
 .section-title {
@@ -230,6 +310,21 @@ form {
   flex-direction: column;
   gap: 10px;
   font-size: 1rem;
+}
+
+.field.invalid input,
+.field.invalid select,
+.field.invalid textarea,
+fieldset.invalid .options {
+  border-color: #d3272a !important;
+  box-shadow: 0 0 0 3px rgba(211, 39, 42, 0.14) !important;
+}
+
+.error-text {
+  margin: 2px 0 0;
+  font-size: 0.86rem;
+  color: #b31f22;
+  font-weight: 600;
 }
 
 .field span,
@@ -387,5 +482,19 @@ input[type="range"] {
   .hero-brand img {
     width: 110px;
     height: 110px;
+  }
+
+  .survey-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .section-nav {
+    position: static;
+  }
+
+  .section-nav-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 }

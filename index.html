@@ -41,6 +41,12 @@
         <div class="progress-text" aria-live="polite">0% completado</div>
       </div>
 
+      <div class="survey-layout">
+      <aside class="section-nav" aria-label="Navegacion por secciones">
+        <p class="section-nav-title">Secciones</p>
+        <ul id="sectionNavList" class="section-nav-list"></ul>
+      </aside>
+
       <form id="survey" novalidate>
   <div class="form-section" data-category="Datos generales y ubicacion">
     <h2 class="section-title">Datos generales y ubicacion</h2>
@@ -67,7 +73,7 @@
       </label>
       <label class="field">
         <span>6. Numero de celular del propietario</span>
-        <input type="tel" name="propietario_celular" placeholder="Ej: 3001234567" required />
+        <input type="tel" name="propietario_celular" placeholder="Ej: 3001234567" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required />
       </label>
       <label class="field">
         <span>7. Correo electronico del propietario</span>
@@ -79,7 +85,7 @@
       </label>
       <label class="field">
         <span>9. Numero de celular de la persona encargada del cultivo</span>
-        <input type="tel" name="encargado_celular" placeholder="Ej: 3001234567" required />
+        <input type="tel" name="encargado_celular" placeholder="Ej: 3001234567" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required />
       </label>
       <label class="field">
         <span>10. La unidad productora (finca) es propia, alquilado u otro</span>
@@ -615,6 +621,7 @@
           <textarea name="observaciones_entrevistador" rows="4" placeholder="Escribe observaciones adicionales."></textarea>
         </label>
       </form>
+      </div>
     </section>
 
     <section class="thanks" hidden>
