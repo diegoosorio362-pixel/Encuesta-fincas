@@ -5,7 +5,6 @@ const thanks = document.querySelector(".thanks");
 const resetBtn = document.querySelector("#resetBtn");
 const downloadBtn = document.querySelector("#downloadBtn");
 const downloadPdfBtn = document.querySelector("#downloadPdfBtn");
-const autofillBtn = document.querySelector("#autofillBtn");
 const sectionNavList = document.querySelector("#sectionNavList");
 const prevSectionBtn = document.querySelector("#prevSectionBtn");
 const nextSectionBtn = document.querySelector("#nextSectionBtn");
@@ -986,117 +985,6 @@ const validateSection = (section) => {
   return isValid;
 };
 
-const sampleValueFor = (element) => {
-  if (element.type === "email") {
-    return "prueba@udla.edu.co";
-  }
-  if (element.type === "tel") {
-    return "3001234567";
-  }
-  if (element.type === "number") {
-    return "10";
-  }
-
-  const name = element.name || "";
-  if (name.includes("coordenadas")) {
-    return "1.2345, -75.6789";
-  }
-  if (name.includes("temperatura")) {
-    return "24 C";
-  }
-  if (name.includes("presion")) {
-    return "760 mmHg";
-  }
-  if (name.includes("altitud")) {
-    return "450 msnm";
-  }
-  if (name.includes("distancia")) {
-    return "5 km";
-  }
-  if (name.includes("unidad_productora")) {
-    return "Finca Demo";
-  }
-  if (name.includes("municipio")) {
-    return "Florencia";
-  }
-  if (name.includes("departamento")) {
-    return "Caqueta";
-  }
-  if (name.includes("vereda")) {
-    return "La Esperanza";
-  }
-  if (name.includes("observaciones")) {
-    return "Dato de prueba para verificar exportacion PDF.";
-  }
-  return "Dato temporal de prueba";
-};
-
-const fillBasicInputs = () => {
-  const textLikeInputs = Array.from(form.querySelectorAll("input, textarea, select")).filter(
-    (el) => !el.disabled && el.type !== "radio" && el.type !== "checkbox"
-  );
-
-  textLikeInputs.forEach((element) => {
-    if (element.tagName === "SELECT") {
-      if (element.options.length > 1) {
-        element.selectedIndex = 1;
-      }
-      return;
-    }
-    element.value = sampleValueFor(element);
-  });
-};
-
-const fillRadioGroups = () => {
-  const radioNames = [...new Set(Array.from(form.querySelectorAll("input[type='radio']")).map((r) => r.name))];
-  radioNames.forEach((name) => {
-    const group = Array.from(form.querySelectorAll(`input[type='radio'][name='${name}']`)).filter(
-      (item) => !item.disabled
-    );
-    if (!group.length) {
-      return;
-    }
-    const preferred = group.find((item) => item.value === "si") || group[0];
-    preferred.checked = true;
-  });
-};
-
-const fillCheckboxGroups = () => {
-  const checkboxNames = [...new Set(Array.from(form.querySelectorAll("input[type='checkbox']")).map((c) => c.name))];
-  checkboxNames.forEach((name) => {
-    const group = Array.from(form.querySelectorAll(`input[type='checkbox'][name='${name}']`)).filter(
-      (item) => !item.disabled
-    );
-    if (!group.length) {
-      return;
-    }
-    group[0].checked = true;
-    const other = group.find((item) => item.value === "otro");
-    if (other) {
-      other.checked = true;
-    }
-  });
-};
-
-const autofillSurvey = () => {
-  form.reset();
-  clearErrors();
-
-  fillRadioGroups();
-  fillCheckboxGroups();
-  updateConditionalVisibility();
-
-  fillBasicInputs();
-  fillRadioGroups();
-  fillCheckboxGroups();
-  updateConditionalVisibility();
-  fillBasicInputs();
-
-  if (sections[0] && sections[0].dataset.sectionId) {
-    activateSection(sections[0].dataset.sectionId);
-  }
-  updateProgress();
-};
 
 form.addEventListener("input", (event) => {
   if (event.target.type === "tel") {
@@ -1185,12 +1073,6 @@ if (nextSectionBtn) {
     }
     const nextIndex = Math.min(sections.length - 1, index + 1);
     activateSection(sections[nextIndex].dataset.sectionId, true);
-  });
-}
-
-if (autofillBtn) {
-  autofillBtn.addEventListener("click", () => {
-    autofillSurvey();
   });
 }
 
